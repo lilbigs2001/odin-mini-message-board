@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/new", (req, res) => {
-  res.status(200).send();
+  res.render("form");
 });
 
 if (process.env.NODE_ENV !== "test") {
