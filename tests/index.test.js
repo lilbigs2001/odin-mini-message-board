@@ -1,4 +1,4 @@
-const app = require("../index");
+const { app, messages } = require("../index");
 const request = require("supertest");
 
 const testServer = app.listen(0);
@@ -7,8 +7,17 @@ afterAll(() => {
   testServer.close();
 });
 
-it("Returns a response when the user navigates to root", async () => {
+it("returns successful response when user navigates to root", async () => {
   const response = await request(testServer).get("/");
   expect(response.status).toBe(200);
-  expect(response.text).toBe("Hello, World!");
+});
+
+it("displays messages on home page", async () => {
+  const response = await request(testServer).get("/");
+  messages.forEach((message) => {
+    expect(response.text).toContain(`<p>User: ${message.user}</p>`);
+    expect(response.text).toContain(`<p>message: ${message.text}</p>`);
+    expect(response.text).toContain(`<p>date: ${message.added}</p>`);
+  });
+  expect(response.text).toContain("<hr>");
 });

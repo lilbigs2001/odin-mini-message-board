@@ -9,11 +9,12 @@
   "author": "Joe Bigelow",
   "license": "ISC",
   "dependencies": {
-    "ejs": "^3.1.10",
+    "@types/jest": "^29.5.14",
     "express": "^4.21.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",
+    "ejs": "^3.1.10",
     "eslint": "^9.19.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-jest": "^28.11.0",
