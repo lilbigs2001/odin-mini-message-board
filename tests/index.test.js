@@ -21,3 +21,8 @@ it("displays messages on home page", async () => {
   });
   expect(response.text).toContain("<hr>");
 });
+
+it("returns successful response when user navigates to '/new'", async () => {
+  const response = await request(testServer).get("/new");
+  expect(response.status).toBe(200);
+});

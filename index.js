@@ -24,6 +24,10 @@ app.get("/", (req, res) => {
   res.render("index", { messages });
 });
 
+app.get("/new", (req, res) => {
+  res.status(200).send();
+});
+
 if (process.env.NODE_ENV !== "test") {
   app.listen(PORT, () => console.log(`Express app listening on ${PORT}...`));
 }
