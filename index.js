@@ -31,8 +31,10 @@ app.get("/new", (req, res) => {
 });
 app.post("/new", (req, res) => {
   const { username, message } = req.body;
-  if (!username) {
-    res.status(400).send("Username is required");
+  if (!username || !message) {
+    res
+      .status(400)
+      .send(`400 Error - ${!username ? "Username" : "Message"} is required`);
   }
   res.status(200).send({ username, message });
 });
