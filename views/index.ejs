@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Homepage</title>
-  </head>
+  <%- include('partials/head', { title: "Homepage" }) %>
   <body>
     <h1>Mini Message Board</h1>
     <% messages.forEach(message => { %>
