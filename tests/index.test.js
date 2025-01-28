@@ -31,3 +31,12 @@ it("returns successful response when user sends POST request to '/new'", async (
   const response = await request(testServer).post("/new");
   expect(response.status).toBe(200);
 });
+
+it("can access the request body for a new message", async () => {
+  const response = await request(testServer)
+    .post("/new")
+    .type("form")
+    .send({ username: "Jennifer", message: "I made it!" });
+  expect(response.body.username).toBe("Jennifer");
+  expect(response.body.message).toBe("I made it!");
+});

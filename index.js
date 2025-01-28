@@ -17,6 +17,8 @@ const messages = [
   },
 ];
 
+app.use(express.urlencoded({ extended: true }));
+
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
@@ -28,7 +30,8 @@ app.get("/new", (req, res) => {
   res.render("form");
 });
 app.post("/new", (req, res) => {
-  res.status(200).send();
+  const { username, message } = req.body;
+  res.status(200).send({ username, message });
 });
 
 if (process.env.NODE_ENV !== "test") {
