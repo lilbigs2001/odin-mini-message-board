@@ -27,6 +27,9 @@ app.get("/", (req, res) => {
 app.get("/new", (req, res) => {
   res.render("form");
 });
+app.post("/new", (req, res) => {
+  res.status(200).send();
+});
 
 if (process.env.NODE_ENV !== "test") {
   app.listen(PORT, () => console.log(`Express app listening on ${PORT}...`));

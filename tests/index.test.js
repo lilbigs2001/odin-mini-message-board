@@ -26,3 +26,8 @@ it("returns successful response when user navigates to '/new'", async () => {
   const response = await request(testServer).get("/new");
   expect(response.status).toBe(200);
 });
+
+it("returns successful response when user sends POST request to '/new'", async () => {
+  const response = await request(testServer).post("/new");
+  expect(response.status).toBe(200);
+});
