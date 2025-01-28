@@ -21,3 +21,11 @@ it("has a 'New Message' heading", async () => {
   const response = await request(testServer).get("/new");
   expect(response.text).toContain("<h1>New Message</h1>");
 });
+
+it("has an input for the author's name", async () => {
+  const response = await request(testServer).get("/new");
+  expect(response.text).toContain('<label for="author_name">Username:</label>');
+  expect(response.text).toContain(
+    '<input type="text" id="author_name" name="username">',
+  );
+});
