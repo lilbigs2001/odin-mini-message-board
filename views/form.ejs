@@ -3,10 +3,12 @@
   <%- include('partials/head', { title: "New Message"}) %>
   <body>
     <h1>New Message</h1>
-    <label for="author_name">Username:</label>
-    <input type="text" id="author_name" name="username">
-    <label for="message">Message:</label>
-    <textarea id="message" name="message"></textarea>
-    <button type="submit">Submit</button>
+    <form method="POST" action="/new">
+      <label for="author_name">Username:</label>
+      <input type="text" id="author_name" name="username">
+      <label for="message">Message:</label>
+      <textarea id="message" name="message"></textarea>
+      <button type="submit">Submit</button>
+  </form>
   </body>
 </html>

@@ -24,6 +24,13 @@ it("has a 'New Message' heading", () => {
   expect(response.text).toContain("<h1>New Message</h1>");
 });
 
+it("has a form with correct method and action", () => {
+  expect(response.text).toMatch(
+    /<form\s+(?=.*method=["']?POST["']?)(?=.*action=["']?\/new["']?).*/i,
+  );
+  expect(response.text).toContain("</form>");
+});
+
 it("has an input for the author's name", () => {
   expect(response.text).toContain('<label for="author_name">Username:</label>');
   expect(response.text).toContain(
