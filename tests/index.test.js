@@ -42,7 +42,7 @@ it("returns a 400 Bad Request error if user does not send username in '/new' POS
     .type("form")
     .send({ username: "", message: "I am a ghost" });
   expect(response.status).toBe(400);
-  expect(response.text).toBe("400 Error - Username is required");
+  expect(response.text).toBe("400 Error - Username required");
 });
 
 it("returns a 400 Bad Request error if user does not send message in '/new' POST request", async () => {
@@ -51,5 +51,14 @@ it("returns a 400 Bad Request error if user does not send message in '/new' POST
     .type("form")
     .send({ username: "Laconica", message: "" });
   expect(response.status).toBe(400);
-  expect(response.text).toBe("400 Error - Message is required");
+  expect(response.text).toBe("400 Error - Message required");
+});
+
+it("returns a 400 Bad Request error if user does not send username and message in '/new' POST request", async () => {
+  const response = await request(testServer)
+    .post("/new")
+    .type("form")
+    .send({ username: "", message: "" });
+  expect(response.status).toBe(400);
+  expect(response.text).toBe("400 Error - Username and Message required");
 });

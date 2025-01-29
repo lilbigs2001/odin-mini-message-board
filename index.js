@@ -32,9 +32,11 @@ app.get("/new", (req, res) => {
 app.post("/new", (req, res) => {
   const { username, message } = req.body;
   if (!username || !message) {
-    res
-      .status(400)
-      .send(`400 Error - ${!username ? "Username" : "Message"} is required`);
+    const missingFields = [];
+    if (!username) missingFields.push("Username");
+    if (!message) missingFields.push("Message");
+    const errorMessage = `400 Error - ${missingFields.join(" and ")} required`;
+    res.status(400).send(errorMessage);
   }
   res.status(200).send({ username, message });
 });
