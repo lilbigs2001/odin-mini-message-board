@@ -31,17 +31,17 @@ it("has a form with correct method and action", () => {
   expect(response.text).toContain("</form>");
 });
 
-it("has an input for the author's name", () => {
+it("has a required input for the author's name", () => {
   expect(response.text).toContain('<label for="author_name">Username:</label>');
-  expect(response.text).toContain(
-    '<input type="text" id="author_name" name="username">',
+  expect(response.text).toMatch(
+    /<input\s+(?=.*type=["']text["'])(?=.*id=["']author_name["'])(?=.*name=["']username["'])(?=.*required)[^>]*>/,
   );
 });
 
-it("has an input for the user message", () => {
+it("has a required input for the user message", () => {
   expect(response.text).toContain('<label for="message">Message:</label>');
-  expect(response.text).toContain(
-    '<textarea id="message" name="message"></textarea>',
+  expect(response.text).toMatch(
+    /<textarea\s+(?=.*id=["']message["'])(?=.*name=["']message["'])(?=.*required)[^>]*>/,
   );
 });
 

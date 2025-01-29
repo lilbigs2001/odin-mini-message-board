@@ -36,29 +36,19 @@ it("can access the request body for a new message", async () => {
   expect(response.body.message).toBe("I made it!");
 });
 
-it("returns a 400 Bad Request error if user does not send username in '/new' POST request", async () => {
-  const response = await request(testServer)
-    .post("/new")
-    .type("form")
-    .send({ username: "", message: "I am a ghost" });
-  expect(response.status).toBe(400);
-  expect(response.text).toBe("400 Error - Username required");
-});
+it.each([
+  ["Username", { username: "", message: "I am a ghost" }],
+  ["Message", { username: "Laconica", message: "" }, "Message"],
+  ["Username and Message", { username: "", message: "" }],
+])(
+  "returns a 400 Bad Request error if user does not send %s in '/new' POST request",
+  async (errorMessage, data) => {
+    const response = await request(testServer)
+      .post("/new")
+      .type("form")
+      .send(data);
 
-it("returns a 400 Bad Request error if user does not send message in '/new' POST request", async () => {
-  const response = await request(testServer)
-    .post("/new")
-    .type("form")
-    .send({ username: "Laconica", message: "" });
-  expect(response.status).toBe(400);
-  expect(response.text).toBe("400 Error - Message required");
-});
-
-it("returns a 400 Bad Request error if user does not send username and message in '/new' POST request", async () => {
-  const response = await request(testServer)
-    .post("/new")
-    .type("form")
-    .send({ username: "", message: "" });
-  expect(response.status).toBe(400);
-  expect(response.text).toBe("400 Error - Username and Message required");
-});
+    expect(response.status).toBe(400);
+    expect(response.text).toBe(`400 Error - ${errorMessage} required`);
+  },
+);
