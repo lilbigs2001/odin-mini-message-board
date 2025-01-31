@@ -63,4 +63,20 @@ it("adds new message to the homepage", async () => {
   expect(decodedText).toContain("<p>message: I'm cute!</p>");
 });
 
+it("adds date to new message", async () => {
+  await request(testServer)
+    .post("/new")
+    .type("form")
+    .send({ username: "Elmo", message: "Tickle me." });
+
+  const response = await request(testServer).get("/");
+  const decodedText = he.decode(response.text);
+  const dateMatches = decodedText.match(/<p>date:.*?<\/p>/g);
+  expect(dateMatches).not.toBeNull();
+  const lastDateMatch = dateMatches[dateMatches.length - 1];
+  const newDate = lastDateMatch.match(/date: (.*?)<\/p>/)[1];
+  const parsedDate = Date.parse(newDate);
+  expect(Number.isNaN(parsedDate)).toBe(false);
+});
+
 // write test ensuring that failed messages don't get added to the messages array

@@ -38,7 +38,7 @@ app.post("/new", (req, res) => {
     const errorMessage = `400 Error - ${missingFields.join(" and ")} required`;
     res.status(400).send(errorMessage);
   }
-  messages.push({ text: message, user: username });
+  messages.push({ text: message, user: username, added: new Date() });
   res.redirect("/");
 });
 
