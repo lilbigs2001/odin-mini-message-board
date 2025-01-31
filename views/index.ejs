@@ -2,6 +2,7 @@
 <html lang="en">
   <%- include('partials/head', { title: "Homepage" }) %>
   <body>
+    <a href="/new">Write a new message!</a>
     <h1>Mini Message Board</h1>
     <% messages.forEach(message => { %>
       <p>User: <%= message.user %></p>

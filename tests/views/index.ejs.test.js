@@ -25,3 +25,7 @@ describe("head partial view", () => {
 it("displays application title", () => {
   expect(response.text).toContain("<h1>Mini Message Board</h1>");
 });
+
+it("has a link tag to the New Message view", () => {
+  expect(response.text).toContain('<a href="/new">Write a new message!</a>');
+});
