@@ -79,4 +79,14 @@ it("adds date to new message", async () => {
   expect(Number.isNaN(parsedDate)).toBe(false);
 });
 
-// write test ensuring that failed messages don't get added to the messages array
+it("does not add invalid messages to messages array", async () => {
+  await request(testServer)
+    .post("/new")
+    .type("form")
+    .send({ username: "", message: "I am user-less" });
+
+  const response = await request(testServer).get("/");
+  const decodedText = he.decode(response.text);
+  console.log(decodedText);
+  expect(decodedText).not.toContain("<p>message: I am user-less</p>");
+});
