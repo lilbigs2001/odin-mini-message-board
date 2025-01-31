@@ -1,5 +1,6 @@
 const { app, messages } = require("../index");
 const request = require("supertest");
+const he = require("he");
 
 const testServer = app.listen(0);
 
@@ -49,3 +50,17 @@ it("redirects to Homepage after user adds new message", async () => {
     .expect("Location", "/")
     .expect(302);
 });
+
+it("adds new message to the homepage", async () => {
+  await request(testServer)
+    .post("/new")
+    .type("form")
+    .send({ username: "Dot", message: "I'm cute!" });
+
+  const response = await request(testServer).get("/");
+  const decodedText = he.decode(response.text);
+  expect(decodedText).toContain("<p>User: Janet</p>");
+  expect(decodedText).toContain("<p>message: I'm cute!</p>");
+});
+
+// write test ensuring that failed messages don't get added to the messages array
